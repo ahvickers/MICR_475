@@ -2,11 +2,6 @@ Homework 4
 ================
 
 ``` r
-#########
-# Script for Homework 4
-# Abigail Vickers
-#########
-
 # Loading libraries
 
 library(tidyverse)
@@ -16,7 +11,7 @@ library(nycflights13)
 
 a <- 3
 b <- 2
-a + b
+print(a + b)
 ```
 
     ## [1] 5
