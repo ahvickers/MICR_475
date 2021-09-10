@@ -28,7 +28,7 @@ sum(2,3)
 
 ## Exercise 3
 
-```{r exercise_3}
+```{r exercise_3, warning=FALSE}
 # Limiting data to only flights through American Airlines
 AA_flights <- filter(flights, carrier == "AA")
 

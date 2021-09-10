@@ -36,6 +36,4 @@ ggplot(data = AA_flights) +
   geom_point(mapping = aes(x = dep_delay, y = arr_delay))
 ```
 
-    ## Warning: Removed 782 rows containing missing values (geom_point).
-
 ![](hw_4_files/figure-gfm/exercise_3-1.png)<!-- -->
