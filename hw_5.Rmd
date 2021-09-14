@@ -1,0 +1,52 @@
+---
+title: "Homework 5"
+output: github_document
+---
+
+```{r load_library, message=FALSE}
+library(tidyverse)
+```
+
+## 1.
+```{r count_of_cut}
+diamonds %>%
+  group_by(cut) %>%
+  summarise(n = n())
+```
+
+## 2.
+```{r random_1_percent}
+diamonds %>%
+  slice_sample(prop = 0.01)
+```
+
+## 3.
+```{r avg_100_largest}
+diamonds %>%
+  group_by(clarity) %>%
+  slice_max(order_by = carat, n = 100, with_ties = FALSE) %>%
+  summarise(avg.size = mean(carat))
+```
+
+## 4.
+```{r plot_dimensions}
+ggplot(diamonds, aes(x = x, y = y)) +
+  geom_point()
+
+ggplot(diamonds, aes(x = x, y = z)) +
+  geom_point()
+```
+
+## 5.
+```{r filter_sus_removed}
+diamonds_dubious_pts_rmvd <- diamonds %>%
+  filter(!(x <= 0 | y <= 0 | z <= 0 | y > 20 | z > 10))
+
+ggplot(diamonds_dubious_pts_rmvd, aes(x = x, y = y)) +
+  geom_point()
+
+ggplot(diamonds_dubious_pts_rmvd, aes(x = x, y = z)) +
+  geom_point()
+```
+
+
