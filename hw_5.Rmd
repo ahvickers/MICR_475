@@ -10,8 +10,7 @@ library(tidyverse)
 ## 1.
 ```{r count_of_cut}
 diamonds %>%
-  group_by(cut) %>%
-  summarise(n = n())
+  count(cut)
 ```
 
 ## 2.

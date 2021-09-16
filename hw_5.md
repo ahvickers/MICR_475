@@ -9,8 +9,7 @@ library(tidyverse)
 
 ``` r
 diamonds %>%
-  group_by(cut) %>%
-  summarise(n = n())
+  count(cut)
 ```
 
     ## # A tibble: 5 × 2
@@ -32,16 +31,16 @@ diamonds %>%
     ## # A tibble: 539 × 10
     ##    carat cut       color clarity depth table price     x     y     z
     ##    <dbl> <ord>     <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
-    ##  1  0.41 Premium   D     SI1      62.1    59  1015  4.76  4.74  2.95
-    ##  2  0.51 Ideal     I     SI2      62.2    55   913  5.14  5.15  3.2 
-    ##  3  1.21 Fair      H     SI2      65.6    56  3862  6.69  6.59  4.36
-    ##  4  1.5  Very Good D     SI1      63.1    57 11863  7.31  7.24  4.59
-    ##  5  0.55 Ideal     F     SI1      61.7    56  1718  5.3   5.26  3.25
-    ##  6  0.33 Ideal     H     VS2      60.7    57   521  4.45  4.48  2.71
-    ##  7  1.2  Premium   H     VS2      62.8    59  6500  6.75  6.7   4.22
-    ##  8  0.66 Premium   E     SI1      61.1    56  1708  5.68  5.62  3.45
-    ##  9  0.3  Very Good G     VVS2     60.4    60   638  4.3   4.34  2.61
-    ## 10  0.3  Ideal     G     VVS1     61.6    58   764  4.31  4.32  2.66
+    ##  1  1.01 Ideal     G     VS1      62.4    58  6951  6.43  6.39  4   
+    ##  2  1.12 Ideal     D     I1       60.6    55  4139  6.73  6.76  4.09
+    ##  3  0.58 Ideal     G     VS2      61.1    55  1641  5.45  5.42  3.32
+    ##  4  0.41 Ideal     D     SI2      62.6    57   656  4.72  4.77  2.97
+    ##  5  0.27 Very Good E     VS1      60.2    58   470  4.19  4.22  2.53
+    ##  6  0.31 Very Good E     VVS2     61.1    55   766  4.39  4.41  2.69
+    ##  7  0.56 Ideal     G     VVS2     62      54  1949  5.28  5.32  3.29
+    ##  8  0.41 Premium   D     VVS2     61.8    58  1356  4.79  4.75  2.95
+    ##  9  1.03 Ideal     H     SI1      61.1    56  5418  6.5   6.53  3.98
+    ## 10  0.75 Premium   F     SI1      61.7    58  2573  5.85  5.88  3.62
     ## # … with 529 more rows
 
 ## 3.
