@@ -1,0 +1,84 @@
+---
+title: "Homework 8"
+output: github_document
+---
+
+## Question 1
+
+```{r load packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(modelr)
+```
+
+```{r}
+by_color <- diamonds %>%
+  group_by(color) %>%
+  nest()
+
+color_model <- function(df) {
+  lm(price ~ carat, data = df)
+}
+
+by_color <- by_color %>%
+  mutate(model = map(data, color_model))
+
+get_slope <- function(fit_obj) {
+  slope <- coef(fit_obj)[2]
+  slope
+}
+
+by_color %>%
+  mutate(slope = map_dbl(model, get_slope)) %>%
+  arrange(desc(slope))
+
+
+```
+
+
+## Question 2
+
+```{r, message=FALSE, warning=FALSE}
+library(nls2)
+```
+
+```{r}
+by_run <- DNase %>%
+  group_by(Run) %>%
+  nest()
+
+sqrt_model <- function(df) {
+  sqrt_mod <- formula(density ~ beta_1 * sqrt(conc) + beta_0)
+  nls2(sqrt_mod, data = df, start = list(beta_1 = 0.5, beta_0 = 0.1))
+}
+
+monod_model <- function(df) {
+  monod_mod <- formula(density ~ (conc * d_max)/(conc + k))
+  nls2(monod_mod, data = df, start = list(d_max = 2.06, k = 2.84))
+  # starting values determined by choosing 2 random rows of DNase
+  # and inputting values into the model formula to form a system of equations
+  # which were then solved for k and d_max
+}
+
+by_run <- by_run %>%
+  mutate(
+    sqrt.model = map(data, sqrt_model),
+    monod.model = map(data, monod_model)
+    )
+
+by_run_long <- by_run %>%
+  pivot_longer(c(sqrt.model, monod.model), names_to = "model.type", values_to = "model")
+
+by_run_glance <- by_run_long %>%
+  mutate(glance = map(model, broom::glance)) %>%
+  unnest(glance)
+
+by_run_glance %>%
+  mutate(
+    Run = factor(Run, levels = c(1,2,3,4,5,6,7,8,9,10,11)) # reordering x values
+    ) %>%
+  ggplot(aes(x = Run, y = AIC)) +
+  geom_point(mapping = aes(color = model.type))
+
+```
+
+Since the AIC of the monod model is consistently lower than the AIC of the square-root model for each run, the monod model appears to be in general better to use.
